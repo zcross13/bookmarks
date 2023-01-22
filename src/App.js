@@ -59,9 +59,9 @@ export default function App(){
         try{
             const response = await fetch('/api/bookmarks', {
                 method:'POST', 
-                hedaers: {
+                headers: {
                     'Content-Type': 'application/json',
-                    Authorization:`Bearer ${token}`
+                    'Authorization':`Bearer ${token}`
                 }, 
                 body: JSON.stringify({...bookmark})
             })
@@ -123,7 +123,10 @@ export default function App(){
     }
 // call when the page first loads 
     useEffect(() => {
-        listBookmarksByUser()
+        const token = localStorage.getItem('token')
+        if(token && token !== 'null' && token !== 'undefined'){
+            listBookmarksByUser()
+        }
     }, [])
     
     return( 
@@ -162,7 +165,7 @@ export default function App(){
                     <h4>{item.title}</h4>
                     <a href={item.url} target='_blank'>{item.url}</a>
                 </li>
-            )): <>No Bookmarks Added</>}
+            )): <> No Bookmarks Added</>}
         </ul>
         </>
     )
