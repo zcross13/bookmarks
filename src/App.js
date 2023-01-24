@@ -67,17 +67,24 @@ export default function App(){
             })
             const data = await response.json()
             setBookmarks([data, ...bookmarks])
+        }catch(error){
+            console.error(error)
+        } finally{
             setBookmark({
                 title: '', 
                 url: ''
             })
-        }catch(error){
-            console.error(error)
-        }
+        } // to allow for setBookmark has time to finish
     }
     const listBookmarksByUser = async () => {
         try{
-            const response = await fetch('/api/users/bookmarks')
+            const response = await fetch('/api/users/bookmarks', {
+                method: 'GET', 
+                headers:{
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`
+                }
+            })
             const data = await response.json()
             setBookmarks(data)
         }catch(error){
@@ -123,12 +130,19 @@ export default function App(){
     }
 // call when the page first loads 
     useEffect(() => {
-        const token = localStorage.getItem('token')
-        if(token && token !== 'null' && token !== 'undefined'){
+        const tokenData = localStorage.getItem('token')
+        if(tokenData && tokenData !== 'null' && tokenData !== 'undefined'){
             listBookmarksByUser()
         }
     }, [])
     
+    //take the token that in the local storage and put it in the state
+    useEffect(() => {
+        const tokenData = localStorage.getItem('token')
+        if(tokenData && tokenData !== 'null' && tokenData !== 'undefined'){
+            setToken(JSON.parse(tokenData))
+        }
+    }, [])
     return( 
         <>
         <h2>Login</h2>

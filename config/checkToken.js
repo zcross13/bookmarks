@@ -9,7 +9,7 @@ module.exports = (req, res, next) => {
         jwt.verify(token, process.env.SECRET, function(err, decoded){
             req.user = err ? null : decoded.user //store decoded user here 
             req.exp = err ? null : new Date(decoded.exp * 1000) 
-            res.locals.data.email = decoded.user.email // store decode user email 
+            res.locals.data.email = err ? null : decoded.user.email // store decode user email 
         })
         return next()
     }else{

@@ -48,7 +48,7 @@ const respondWithToken = (req, res ) => {
     res.json(res.locals.data.token)
 }
 
-const responsdWithUser = (req, res) => {
+const respondWithUser = (req, res) => {
     res.json(res.locals.data.user)
 }
 
@@ -69,5 +69,5 @@ module.exports = {
     getBookmarksByUser, 
     respondWithToken, 
     respondWithBookmarks, 
-    responsdWithUser
+    respondWithUser
 }
