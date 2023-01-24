@@ -3,9 +3,8 @@ const bookmarkCrtl = require('../../controllers/api/bookmarks')
 const checkToken = require('../../config/checkToken')
 const ensureLoggedIn = require('../../config/ensureLoggedIn')
 
-
 // api/bookmarks/:id
-// DELETE 
+// DELETE
 // destroy bookmark
 router.delete('/:id', checkToken, ensureLoggedIn, bookmarkCrtl.destroyBookmark, bookmarkCrtl.respondWithBookmark)
 
@@ -15,8 +14,8 @@ router.delete('/:id', checkToken, ensureLoggedIn, bookmarkCrtl.destroyBookmark, 
 router.put('/:id', checkToken, ensureLoggedIn, bookmarkCrtl.updateBookmark, bookmarkCrtl.respondWithBookmark)
 
 // api/bookmarks
-// POST 
-// create bookmark 
+// POST
+// create bookmark
 router.post('/', checkToken, ensureLoggedIn, bookmarkCrtl.createBookmark, bookmarkCrtl.respondWithBookmark)
 
-module.exports = router 
+module.exports = router
